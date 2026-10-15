@@ -499,7 +499,10 @@ it("sweeps retired entries but preserves staging with unresolved process ownersh
   expect(await entries(cacheRoot, "trash")).toEqual([]);
 });
 
-it.each(["sweep", "close"] as const)(
+// Root bypasses directory mode bits, so the retired export stays removable.
+test
+  .skipIf(process.platform === "win32" || process.getuid?.() === 0)
+  .each(["sweep", "close"] as const)(
   "keeps failed file cleanup owned until recovery through %s",
   async (recovery) => {
     const { installation, cacheRoot, cache, target } = await fixture(
