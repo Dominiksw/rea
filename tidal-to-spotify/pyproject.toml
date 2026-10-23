@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tidal2spotify"
+version = "1.0.0"
+description = "Gleicht Lieblingssongs, Playlists, Alben und Künstler von Tidal mit Spotify ab und überträgt sie."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "spotipy>=2.26,<3",   # 2.26 follows the February 2026 Spotify Web API changes
+    "tidalapi>=0.8.11,<0.9",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+tidal2spotify = "tidal2spotify.cli:main"
+
+[tool.setuptools]
+packages = ["tidal2spotify"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
